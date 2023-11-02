@@ -2,20 +2,32 @@ package org.example;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
 
 public class DealershipFileManager {
     public Dealership getDealership() {
 
-        try {
-            FileReader fileReader = new FileReader("transactions.csv");
-            BufferedReader bufferedReader = new BufferedReader(fileReader);
-            String input;
+        Dealership dealership = null;
 
-            bufferedReader.readLine();
+        BufferedReader bufferedReader = null;
+        try {
+            FileReader fileReader = new FileReader("inventory.csv");
+            bufferedReader = new BufferedReader(fileReader);
+            String input;
+            String firstLine;
+
+            // first line
+            firstLine = bufferedReader.readLine();
+            String[] firstLineStrings = firstLine.split("\\|");
+            var name = firstLineStrings[0].trim();
+            var address = firstLineStrings[1].trim();
+            var phone = firstLineStrings[2].trim();
+
+            dealership = new Dealership(name, address, phone);
 
             while ((input = bufferedReader.readLine()) != null) {
                 String[] fields = (input.toString()).split("\\|");
-                // each String is {"date", "time", "description", "vendor", "amount"};
 
                 var vin = Integer.parseInt(fields[0]);
                 var year = Integer.parseInt(fields[1]);
@@ -28,11 +40,19 @@ public class DealershipFileManager {
 
                 Vehicle v = new Vehicle(vin, year, make, model, vehicleType, color, odometer, price);
 
-                // Dealership d;
-                // d.add(v);
+                dealership.addVehicle(v);
             }
+            // todo remove this when we have testing in place
+            System.out.println(dealership);
+
         } catch (Exception e) {
             e.printStackTrace();
+        } finally {
+            try {
+                bufferedReader.close();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         }
         return dealership;
     }
