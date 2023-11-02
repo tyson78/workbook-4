@@ -7,6 +7,7 @@ public class Vehicle {
     private String model;
     private String color;
     private String vehicleType;
+
     private int odometer;
     private double price;
 
@@ -20,6 +21,24 @@ public class Vehicle {
         this.color = color;
         this.vehicleType = vehicleType;
         this.price = price;
+
+        if (year == 1993) this.color = "silver";
+        if (year == 1992) this.color = "Green";
+    }
+
+    // To String
+    @Override
+    public String toString() {
+        return "Vehicle{" +
+                "year=" + year +
+                ", vin=" + vin +
+                ", make='" + make + '\'' +
+                ", model='" + model + '\'' +
+                ", color='" + color + '\'' +
+                ", vehicleType='" + vehicleType + '\'' +
+                ", odometer=" + odometer +
+                ", price=" + price +
+                '}';
     }
 
     // Getters and Setters
