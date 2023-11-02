@@ -85,9 +85,15 @@ public class UserInterface {
 
     // <---displayVehicles() helper method--->
     private void displayVehicles(List<Vehicle> vehicles) {
+        System.out.println("Displaying all the vehicles");
+
         for (Vehicle vehicle : vehicles) {
-            System.out.println(vehicle);
+            System.out.println(vehicle.getVin() + "|" + vehicle.getYear() + "|" +
+                    vehicle.getMake() + "|" + vehicle.getModel() + "|" + vehicle.getVehicleType() + "|" +
+                    vehicle.getColor() + "|" + vehicle.getOdometer() + "|" + vehicle.getPrice()
+            );
         }
+        scanner.nextLine();
     }
 
     // <---Process Methods--->
