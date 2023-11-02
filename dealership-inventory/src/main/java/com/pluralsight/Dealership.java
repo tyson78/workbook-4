@@ -11,6 +11,7 @@ public class Dealership {
     //  to store the dealership's inventory
 
 
+    // <---To String--->
     @Override
     public String toString() {
         return "Dealership{" +
@@ -31,9 +32,9 @@ public class Dealership {
 
 
     // <---Getters and Setters--->
-    // add a Vehicle to the dealership's inventory.
-    // returns a list of all vehicles in the dealership's inventory.
-    // searching vehicles
+        // add a Vehicle to the dealership's inventory.
+        // returns a list of all vehicles in the dealership's inventory.
+        // searching vehicles
     public String getName() {
         return name;
     }

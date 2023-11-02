@@ -14,7 +14,7 @@ public class UserInterface {
 
     private void init() {
         DealershipFileManager dfm = new DealershipFileManager();
-        dealership = dfm.getDealership();
+        this.dealership = dfm.getDealership();
     }
 
     public void display() {
@@ -22,9 +22,11 @@ public class UserInterface {
         displayMenu();
     }
 
-    // helper function
+    // <---displayMenu() helper method--->
     public void displayMenu() {
         boolean done = false;
+
+        // 1) display the menu
         while (!done) {
             System.out.println("""
                     Make A Choice:
@@ -40,9 +42,12 @@ public class UserInterface {
                         0. Exit
                     """);
 
+            // 2) read the user's command
             int input = scanner.nextInt();
             scanner.nextLine();
 
+            // 3) switch statement that calls the correct process() method
+            // that matches the user request.
             switch (input) {
                 case 1:
                     processGetByPriceRequest();
@@ -78,10 +83,10 @@ public class UserInterface {
         }
     }
 
-    // displayVehicles() helper method
-    public void displayVehicles(List<Vehicle> vehicles) {
+    // <---displayVehicles() helper method--->
+    private void displayVehicles(List<Vehicle> vehicles) {
         for (Vehicle vehicle : vehicles) {
-            System.out.println(vehicle.toString());
+            System.out.println(vehicle);
         }
     }
 
@@ -123,6 +128,8 @@ public class UserInterface {
     }
 
     private void processGetAllVehiclesRequest() {
+        List<Vehicle> allVehicles = dealership.getAllVehicles();
+        displayVehicles(allVehicles);
     }
 
     private void processAddVehicleRequest() {
