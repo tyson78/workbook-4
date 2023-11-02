@@ -93,7 +93,7 @@ public class UserInterface {
                     vehicle.getColor() + "|" + vehicle.getOdometer() + "|" + vehicle.getPrice()
             );
         }
-        scanner.nextLine();
+        System.out.println();
     }
 
     // <---Process Methods--->
