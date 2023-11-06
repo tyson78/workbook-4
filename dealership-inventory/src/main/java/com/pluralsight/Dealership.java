@@ -3,10 +3,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Dealership {
+    //<---Global attributes--->
     private String name;
     private String address;
     private String phone;
-
     private ArrayList<Vehicle> inventory;
     //  to store the dealership's inventory
 
@@ -30,11 +30,7 @@ public class Dealership {
         this.inventory = new ArrayList<>();
     }
 
-
     // <---Getters and Setters--->
-        // add a Vehicle to the dealership's inventory.
-        // returns a list of all vehicles in the dealership's inventory.
-        // searching vehicles
     public String getName() {
         return name;
     }
@@ -58,23 +54,25 @@ public class Dealership {
     public void setPhone(String phone) {
         this.phone = phone;
     }
-    public void addVehicle(Vehicle vehicle) {
-        inventory.add(vehicle);
+    public ArrayList<Vehicle> getInventory() {
+        return inventory;
     }
 
+    public void setInventory(ArrayList<Vehicle> inventory) {
+        this.inventory = inventory;
+    }
+
+    //<---list options methods--->
     public List<Vehicle> getAllVehicles() {
         return inventory;
     }
 
-    // implement the search vehicle attributes like model, yeat ect
-
     public List<Vehicle> getVehiclesByPrice(double min, double max) {
-        List<Vehicle> vehicles = getAllVehicles();
         List<Vehicle> output = new ArrayList<>();
 
-        for (Vehicle v : vehicles) {
+        for (Vehicle v : inventory) {
             Double curPrice = v.getPrice();
-            if (min < curPrice && curPrice < max) {
+            if (min <= curPrice && curPrice <= max) {
                 output.add(v);
             }
         }
@@ -85,7 +83,7 @@ public class Dealership {
         List<Vehicle> arrayListOfVehicles = new ArrayList<>();
 
         for (Vehicle v : inventory) {
-            if (v.getMake().equals(make) && v.getModel().equals(model)) {
+            if (v.getMake().equalsIgnoreCase(make) && v.getModel().equalsIgnoreCase(model)) {
                 arrayListOfVehicles.add(v);
             }
         }
@@ -94,34 +92,60 @@ public class Dealership {
 
     public List<Vehicle> getVehiclesByYear(int min, int max) {
 
-        return null;
+        List<Vehicle> vehicles = new ArrayList<>();
+
+        for (Vehicle v : inventory) {
+            int curYear = v.getYear();
+            if (min <= curYear && curYear <= max) {
+                vehicles.add(v);
+            }
+        }
+        return vehicles;
     }
 
     public List<Vehicle> getVehiclesByColor(String color) {
 
-        return null;
+        List<Vehicle> vehicles = new ArrayList<>();
+
+        for (Vehicle v : inventory) {
+            String curColor = v.getColor();
+            if (curColor.equalsIgnoreCase(color)) {
+                vehicles.add(v);
+            }
+        }
+        return vehicles;
     }
 
     public List<Vehicle> getVehiclesByMileage(int min, int max) {
+        List<Vehicle> vehicles = new ArrayList<>();
 
-        return null;
+        for (Vehicle v : inventory) {
+            int curMileage = v.getOdometer();
+            if (min <= curMileage && curMileage <= max) {
+                vehicles.add(v);
+            }
+        }
+        return vehicles;
     }
 
     public List<Vehicle> getVehiclesByType(String vehicleType) {
-        return null;
+        List<Vehicle> vehicles = new ArrayList<>();
+
+        for (Vehicle v : inventory) {
+            String curVehicleType = v.getVehicleType();
+            if (curVehicleType.equalsIgnoreCase(vehicleType)) {
+                vehicles.add(v);
+            }
+        }
+        return vehicles;
     }
 
+    // <---Add & Remove Vehicle--->
+    public void addVehicle(Vehicle vehicle) {
+        inventory.add(vehicle);
+    }
     public void removeVehicle(Vehicle vehicle) {
 
     }
-
-    public ArrayList<Vehicle> getInventory() {
-        return inventory;
-    }
-
-    public void setInventory(ArrayList<Vehicle> inventory) {
-        this.inventory = inventory;
-    }
-
 
 }
