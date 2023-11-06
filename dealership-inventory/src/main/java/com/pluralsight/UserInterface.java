@@ -1,8 +1,13 @@
 package com.pluralsight;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.lang.reflect.Constructor;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.FileReader;
 
 public class UserInterface {
     Scanner scanner = new Scanner(System.in);
@@ -98,7 +103,16 @@ public class UserInterface {
 
     // <---Process Methods--->
     private void processGetByPriceRequest() {
+        // enter Price
+        System.out.println("Please enter the min Price");
+        Double minPrice = scanner.nextDouble();
 
+        System.out.println("Please enter the max Price");
+        Double maxPrice = scanner.nextDouble();
+
+        // get Vehicle from Dealership
+        List<Vehicle> vehicles = dealership.getVehiclesByPrice(minPrice, maxPrice);
+        displayVehicles(vehicles);
     }
 
     private void processGetByMakeModelRequest() {
@@ -114,7 +128,7 @@ public class UserInterface {
         List<Vehicle> vehicles = dealership.getVehiclesByMakeModel(make, model);
 
         // loop through return vehicles
-        // print out each vehicles
+        // print out each vehicle
         for (Vehicle v : vehicles) {
             System.out.println(v);
         }
@@ -143,5 +157,24 @@ public class UserInterface {
 
     private void processRemoveVehicleRequest() {
     }
+
+    //<---READ FROM CSV--->
+//    private ArrayList<Vehicle> readFromCsv() {
+//        ArrayList<Vehicle> vehicles = new ArrayList<>();
+//        try {
+//            FileReader fileReader = new FileReader("inventory.csv");
+//            BufferedReader bufferedReader = new BufferedReader(fileReader);
+//            String input;
+//
+//            bufferedReader.readLine();
+//        } catch () {
+//
+//        } catch (FileNotFoundException e) {
+//            throw new RuntimeException(e);
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
+//        return vehicles;
+//    }
 
 }

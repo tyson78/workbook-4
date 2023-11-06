@@ -69,8 +69,16 @@ public class Dealership {
     // implement the search vehicle attributes like model, yeat ect
 
     public List<Vehicle> getVehiclesByPrice(double min, double max) {
+        List<Vehicle> vehicles = getAllVehicles();
+        List<Vehicle> output = new ArrayList<>();
 
-        return null;
+        for (Vehicle v : vehicles) {
+            Double curPrice = v.getPrice();
+            if (min < curPrice && curPrice < max) {
+                output.add(v);
+            }
+        }
+        return output;
     }
 
     public List<Vehicle> getVehiclesByMakeModel(String make, String model) {
