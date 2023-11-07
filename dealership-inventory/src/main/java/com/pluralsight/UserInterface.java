@@ -13,12 +13,14 @@ public class UserInterface {
     Scanner scanner = new Scanner(System.in);
     Dealership dealership;
 
+    DealershipFileManager dfm;
+
     // <---Constructor--->
     public UserInterface() {
     }
 
     private void init() {
-        DealershipFileManager dfm = new DealershipFileManager();
+        dfm = new DealershipFileManager();
         this.dealership = dfm.getDealership();
     }
 
@@ -179,12 +181,15 @@ public class UserInterface {
     private void processAddVehicleRequest() {
         System.out.println("Enter the Vin");
         int vin = scanner.nextInt();
+        scanner.nextLine(); // for numerical inputs, do scanner.nextLine() to clear out the new line
+        // bcuz numerical inputs will run till it encounters a new line
 
         System.out.println("Enter the Year");
         int year = scanner.nextInt();
+        scanner.nextLine();
 
         System.out.println("Enter the Make");
-        String make = scanner.nextLine().trim();
+        String make = scanner.nextLine();
 
         System.out.println("Enter the Model");
         String model = scanner.nextLine();
@@ -197,14 +202,20 @@ public class UserInterface {
 
         System.out.println("Enter the Odometer/Mileage");
         int odometer = scanner.nextInt();
+        scanner.nextLine();
 
         System.out.println("Enter the Price");
         Double price = scanner.nextDouble();
+        scanner.nextLine();
 
         Vehicle v = new Vehicle(vin, year, make, model, vehicleType, color, odometer, price);
         dealership.addVehicle(v);
+
+        dfm.saveDealership(dealership);
     }
 
+    // remove by vehicle vin
+    // return the vehicle that is removed & if you can't
     private void processRemoveVehicleRequest() {
 
     }
