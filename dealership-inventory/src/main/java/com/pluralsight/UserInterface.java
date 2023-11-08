@@ -46,6 +46,7 @@ public class UserInterface {
                         7. All Vehicles
                         8. Add Vehicle
                         9. Remove Vehicle
+                        10. Sell/Lease A Vehicle
                         0. Exit
                     """);
 
@@ -220,23 +221,9 @@ public class UserInterface {
 
     }
 
-    //<---READ FROM CSV--->
-//    private ArrayList<Vehicle> readFromCsv() {
-//        ArrayList<Vehicle> vehicles = new ArrayList<>();
-//        try {
-//            FileReader fileReader = new FileReader("inventory.csv");
-//            BufferedReader bufferedReader = new BufferedReader(fileReader);
-//            String input;
-//
-//            bufferedReader.readLine();
-//        } catch () {
-//
-//        } catch (FileNotFoundException e) {
-//            throw new RuntimeException(e);
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        }
-//        return vehicles;
-//    }
+    private void processGetContract() {
+
+    }
+
 
 }
