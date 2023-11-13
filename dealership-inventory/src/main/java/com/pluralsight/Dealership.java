@@ -140,6 +140,17 @@ public class Dealership {
         return vehicles;
     }
 
+    public Vehicle getVehicleByVIN(int vin) {
+        Vehicle vehicle = null;
+
+        for (Vehicle v : inventory) {
+            if (vin == v.getVin()) {
+                return v;
+            }
+        }
+        return vehicle;
+    }
+
     // <---Add & Remove Vehicle--->
     public void addVehicle(Vehicle vehicle) {
         inventory.add(vehicle);

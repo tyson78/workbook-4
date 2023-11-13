@@ -3,7 +3,7 @@ package com.pluralsight;
 import java.time.LocalDate;
 
 public abstract class Contract {
-    private LocalDate contractDate;
+    private String contractDate;
     private String customerName;
     private String customerEmail;
     private Vehicle vehicleSold;
@@ -12,22 +12,27 @@ public abstract class Contract {
 
     //<---Constructors--->
 
-    public Contract(LocalDate contractDate, String customerName, String customerEmail, Vehicle vehicleSold, double totalPrice, double monthlyPayment) {
+    public Contract(String contractDate, String customerName, String customerEmail, Vehicle vehicleSold) {
         this.contractDate = contractDate;
         this.customerName = customerName;
         this.customerEmail = customerEmail;
         this.vehicleSold = vehicleSold;
-        this.totalPrice = totalPrice;
-        this.monthlyPayment = monthlyPayment;
     }
+
+//    public Contract(String contractDate, String customerName, String customerEmail, Vehicle vehicleSold) {
+//        this.contractDate = contractDate;
+//        this.customerName = customerName;
+//        this.customerEmail = customerEmail;
+//        this.vehicleSold = vehicleSold;
+//    }
 
 
     //<---Getters & Setters--->
-    public LocalDate getContractDate() {
+    public String getContractDate() {
         return contractDate;
     }
 
-    public void setContractDate(LocalDate contractDate) {
+    public void setContractDate(String contractDate) {
         this.contractDate = contractDate;
     }
 

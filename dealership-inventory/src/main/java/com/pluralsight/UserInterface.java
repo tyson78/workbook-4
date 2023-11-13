@@ -3,6 +3,8 @@ package com.pluralsight;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.lang.reflect.Constructor;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -14,6 +16,10 @@ public class UserInterface {
     Dealership dealership;
 
     DealershipFileManager dfm;
+
+    SalesContract salesContract;
+    LeaseContract leaseContract;
+    ContractFileManager cfm = new ContractFileManager();
 
     // <---Constructor--->
     public UserInterface() {
@@ -83,6 +89,10 @@ public class UserInterface {
                     break;
                 case 9:
                     processRemoveVehicleRequest();
+                    break;
+                case 10:
+                    processSellOrLeaseVehicle();
+                    break;
                 case 0:
                     done = true;
                     break;
@@ -221,8 +231,46 @@ public class UserInterface {
 
     }
 
-    private void processGetContract() {
+    public void processSellOrLeaseVehicle() {
+        // <---Basic Sales Information From The User--->
+        System.out.println("What is the contract's date? in yyyymmdd");
+        String dateInput = scanner.nextLine();
 
+        System.out.println("Enter customer name");
+        String customerName = scanner.nextLine();
+
+        System.out.println("Enter customer email");
+        String customerEmail = scanner.nextLine();
+
+        System.out.println("Enter the VIN of the vehicle that you're interested in");
+        int vin = scanner.nextInt();
+        scanner.nextLine();
+
+        Vehicle vehicleInfo = dealership.getVehicleByVIN(vin);
+
+        System.out.println("Type 1 for LEASE or 2 for SALE");
+        int leaseOrSaleInput = scanner.nextInt();
+        scanner.nextLine();
+
+        if (leaseOrSaleInput == 1) {
+            leaseContract = new LeaseContract(dateInput, customerName, customerEmail, vehicleInfo);
+
+            // <---Saving Contract to CSV file--->
+            cfm.saveContract(leaseContract);
+        }
+        else if(leaseOrSaleInput == 2) {
+
+            System.out.println("Do you want to finance it?");
+            char financeInput = Character.toLowerCase(scanner.nextLine().charAt(0));
+            boolean isFinance = false;
+            if (financeInput == 'y') {
+                isFinance = true;
+            }
+            salesContract = new SalesContract(dateInput, customerName, customerEmail, vehicleInfo, isFinance);
+
+            // <---Saving Contract to CSV file--->
+            cfm.saveContract(salesContract);
+        }
     }
 
 

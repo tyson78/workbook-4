@@ -1,7 +1,5 @@
 package com.pluralsight;
 
-import java.time.LocalDate;
-
 public class SalesContract extends Contract {
     private static final double salesTaxRate = 0.05;
     private double salesTaxAmount;
@@ -9,13 +7,12 @@ public class SalesContract extends Contract {
     private double processingFee;
     private boolean isFinance;
 
-    public SalesContract(LocalDate contractDate, String customerName, String customerEmail,
-                         Vehicle vehicleSold, double totalPrice, double monthlyPayment,
-                         boolean isFinance) {
-        super(contractDate, customerName, customerEmail, vehicleSold, totalPrice, monthlyPayment);
-        this.isFinance = isFinance;
+    public SalesContract(String contractDate, String customerName, String customerEmail,
+                         Vehicle vehicleSold, boolean isFinance) {
+        super(contractDate, customerName, customerEmail, vehicleSold);
         salesTaxAmount = vehicleSold.getPrice() * salesTaxRate;
         processingFee = vehicleSold.getPrice() < 10000 ? 295 : 495;
+        this.isFinance = isFinance;
     }
 
     // <---totalPrice & monthly payment--->
@@ -23,38 +20,35 @@ public class SalesContract extends Contract {
     public double getTotalPrice() {
         double totalPrice = 0;
         double vehiclePrice = getVehicleSold().getPrice();
-        double totalTax = vehiclePrice * salesTaxAmount;
-        totalPrice = vehiclePrice + totalTax + recordingFee + processingFee;
+        totalPrice = vehiclePrice + salesTaxAmount + recordingFee + processingFee;
         return totalPrice;
     }
 
     @Override
     public double getMonthlyPayment() {
-        double monthlyPayment;
-        double interestRate = 0;
-        int paymentPerUnit = 0;
-        int loanTermsInYears = 0;
+        double monthlyPayment = 0.00;
 
-        double vehiclePrice = getVehicleSold().getPrice();
+        if (isFinance == true) {
+            double interestRate = 0;
+            int loanTerms = 0;
+            double vehiclePrice = getVehicleSold().getPrice();
 
-        if (vehiclePrice > 10000) {
-            // Monthly payment = (Amount financed * Monthly interest rate) / (1 - (1 + Monthly interest rate)^-Number of months in lease term)
-            interestRate = 0.0425;
-            paymentPerUnit = 48;
-            loanTermsInYears = 2;
+            if (vehiclePrice >= 10000) {
+                // Monthly payment = (Amount financed * Monthly interest rate) / (1 - (1 + Monthly interest rate)^-Number of months in lease term)
+                interestRate = 0.0425;
+                loanTerms = 48;
+            }
+            else {
+                interestRate = 0.0525;
+                loanTerms = 24;
+            }
 
-            double top = vehiclePrice * (interestRate/paymentPerUnit);
-            double bottom = 1 - (1+Math.pow((interestRate/paymentPerUnit), -(loanTermsInYears * paymentPerUnit)));
-            monthlyPayment = top/bottom;
+            double loanPrice = interestRate * this.getTotalPrice();
+            double monthlyInterestRate = interestRate / 12 / 100;
+            monthlyPayment = (loanPrice * monthlyInterestRate) /
+                    (1 - Math.pow(1 + monthlyInterestRate, -loanTerms));
 
-        } else {
-            interestRate = 0.0525;
-            paymentPerUnit = 24;
-            loanTermsInYears = 1;
-
-            double top = vehiclePrice * (interestRate);
-            double bottom = 1 - (1+Math.pow(interestRate, -paymentPerUnit));
-            monthlyPayment = top/bottom;
+            return monthlyPayment;
         }
         return monthlyPayment;
     }
