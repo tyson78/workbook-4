@@ -228,6 +228,10 @@ public class UserInterface {
     // remove by vehicle vin
     // return the vehicle that is removed & if you can't
     private void processRemoveVehicleRequest() {
+        System.out.println("Enter the vehicle VIN to be removed");
+        int vin = scanner.nextInt();
+
+        List<Vehicle> allVehicles = dealership.getAllVehicles();
 
     }
 
@@ -260,7 +264,8 @@ public class UserInterface {
         }
         else if(leaseOrSaleInput == 2) {
 
-            System.out.println("Do you want to finance it?");
+            System.out.println("Do you want to finance it? " +
+                    "type 'y' for Yes and 'n' for No");
             char financeInput = Character.toLowerCase(scanner.nextLine().charAt(0));
             boolean isFinance = false;
             if (financeInput == 'y') {
@@ -271,6 +276,10 @@ public class UserInterface {
             // <---Saving Contract to CSV file--->
             cfm.saveContract(salesContract);
         }
+
+        // <---Remove vehicle from the inventory--->
+        dealership.removeVehicle(vehicleInfo);
+        System.out.println(vehicleInfo);
     }
 
 

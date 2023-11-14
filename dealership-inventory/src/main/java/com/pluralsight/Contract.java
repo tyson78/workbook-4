@@ -10,21 +10,13 @@ public abstract class Contract {
     private double totalPrice;
     private double monthlyPayment;
 
-    //<---Constructors--->
-
+    //<---Constructor--->
     public Contract(String contractDate, String customerName, String customerEmail, Vehicle vehicleSold) {
         this.contractDate = contractDate;
         this.customerName = customerName;
         this.customerEmail = customerEmail;
         this.vehicleSold = vehicleSold;
     }
-
-//    public Contract(String contractDate, String customerName, String customerEmail, Vehicle vehicleSold) {
-//        this.contractDate = contractDate;
-//        this.customerName = customerName;
-//        this.customerEmail = customerEmail;
-//        this.vehicleSold = vehicleSold;
-//    }
 
 
     //<---Getters & Setters--->
@@ -67,6 +59,7 @@ public abstract class Contract {
     public void setMonthlyPayment(double monthlyPayment) {
         this.monthlyPayment = monthlyPayment;
     }
+
 
     //<---Abstract methods--->
     public abstract double getTotalPrice();
